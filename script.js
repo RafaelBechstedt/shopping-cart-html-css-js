@@ -1,5 +1,3 @@
-import { fetchProducts } from './helpers/fetchProducts';
-
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -54,6 +52,5 @@ const productListing = async () => {
   });
 };
 
-window.onload = async () => {
-  await productListing();
- };
+window.onload = () => {};
+ productListing();
