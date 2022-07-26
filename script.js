@@ -1,4 +1,4 @@
-const { fetchProducts } = require('./helpers/fetchProducts');
+import { fetchProducts } from './helpers/fetchProducts';
 
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
