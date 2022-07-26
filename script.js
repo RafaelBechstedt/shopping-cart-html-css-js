@@ -1,3 +1,5 @@
+const { fetchProducts } = require('./helpers/fetchProducts');
+
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -38,4 +40,20 @@ const createCartItemElement = ({ sku, name, salePrice }) => {
   return li;
 };
 
-window.onload = () => { };
+const productListing = async () => {
+  const data = await fetchProducts('computador');
+  const { results } = data; 
+  results.forEach((result) => {
+    const productObject = {
+      sku: result.id,
+      name: result.title,
+      image: result.thumbnail,
+    };
+    const productItemElement = createProductItemElement(productObject);
+    document.querySelector('.items').appendChild(productItemElement);
+  });
+};
+
+window.onload = async () => {
+  await productListing();
+ };
