@@ -60,9 +60,14 @@ const addProductToCart = async (item) => {
   cartItem.appendChild(createCartItemElement({ sku, name, salePrice }));
 };
 
-const buttonItem = () => {
-  
-}
+const buttonItem = async () => {
+  const getButtons = document.querySelectorAll('.item__add');
+  getButtons.forEach((button) => {
+    button.addEventListener('click', addProductToCart);
+ });
+};
 
-window.onload = () => {};
- productListing();
+window.onload = async () => {
+await productListing();
+await buttonItem();
+};
