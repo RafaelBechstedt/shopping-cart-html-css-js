@@ -52,5 +52,17 @@ const productListing = async () => {
   });
 };
 
+const addProductToCart = async (item) => {
+  const itemId = getSkuFromProductItem(item.target.parentNode);
+  const cartItem = document.querySelector('.cart__items');
+  const itemObject = await fetchItem(itemId);
+  const { id: sku, title: name, price: salePrice } = itemObject;
+  cartItem.appendChild(createCartItemElement({ sku, name, salePrice }));
+};
+
+const buttonItem = () => {
+  
+}
+
 window.onload = () => {};
  productListing();
