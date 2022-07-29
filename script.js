@@ -67,7 +67,16 @@ const buttonItem = async () => {
  });
 };
 
+const clearCart = () => {
+  document.querySelector('.cart__items').innerHTML = '';
+};
+
+const buttonClearCart = () => {
+  document.querySelector('.empty-cart').addEventListener('click', clearCart);
+};
+
 window.onload = async () => {
 await productListing();
 await buttonItem();
+buttonClearCart();
 };
