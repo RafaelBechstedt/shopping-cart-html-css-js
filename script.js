@@ -87,6 +87,13 @@ const removeLoadingText = () => {
   document.querySelector('.loading').remove();
 };
 
+// const loadPreviousCart = () => {
+//   const previousCart = localStorage.getItem('cartItems');
+//   if (previousCart.length !== 0) {
+//     document.querySelector('.cart__items').innerHTML = 
+//   }
+// };
+
 window.onload = async () => {
   addLoadingText();
   await productListing();
