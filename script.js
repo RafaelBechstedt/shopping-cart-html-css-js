@@ -1,3 +1,18 @@
+const cartItems = document.querySelector('.cart__items');
+
+const somaItens = () => {
+  const itens = document.querySelectorAll('.cart__item');
+  let soma = 0;
+  itens.forEach((item) => {
+    soma += Number(item.textContent.split('$')[1]);
+  });
+  return soma;
+};
+
+const totalPrice = () => {
+ document.querySelector('.total-price').innerText = somaItens();
+};
+
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -28,6 +43,8 @@ const getSkuFromProductItem = (item) => item.querySelector('span.item__sku').inn
 
 const cartItemClickListener = (event) => {
   event.target.remove();
+  saveCartItems(cartItems.innerHTML);
+  totalPrice();
 };
 
 const createCartItemElement = ({ sku, name, salePrice }) => {
@@ -54,10 +71,11 @@ const productListing = async () => {
 
 const addProductToCart = async (item) => {
   const itemId = getSkuFromProductItem(item.target.parentNode);
-  const cartItem = document.querySelector('.cart__items');
   const itemObject = await fetchItem(itemId);
   const { id: sku, title: name, price: salePrice } = itemObject;
-  cartItem.appendChild(createCartItemElement({ sku, name, salePrice }));
+  cartItems.appendChild(createCartItemElement({ sku, name, salePrice }));
+  saveCartItems(cartItems.innerHTML);
+  totalPrice();
 };
 
 const buttonItem = async () => {
@@ -68,11 +86,14 @@ const buttonItem = async () => {
 };
 
 const clearCart = () => {
-  document.querySelector('.cart__items').innerHTML = '';
+  cartItems.innerHTML = '';
+  saveCartItems(cartItems.innerHTML);
+  totalPrice();
 };
 
 const buttonClearCart = () => {
   document.querySelector('.empty-cart').addEventListener('click', clearCart);
+  saveCartItems(cartItems.innerHTML);
 };
 
 const addLoadingText = () => {
@@ -86,13 +107,6 @@ const addLoadingText = () => {
 const removeLoadingText = () => {
   document.querySelector('.loading').remove();
 };
-
-// const loadPreviousCart = () => {
-//   const previousCart = localStorage.getItem('cartItems');
-//   if (previousCart.length !== 0) {
-//     document.querySelector('.cart__items').innerHTML = 
-//   }
-// };
 
 window.onload = async () => {
   addLoadingText();
